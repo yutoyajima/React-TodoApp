@@ -1,10 +1,12 @@
 import React from "react"
-import Item from "./item"
+import Item from "./Item"
 
-const List = () => {
+const List = ({todo}) => {
    return (
       <ul>
-         <Item/>
+         <Item todo={todo[0]}/>
+         <Item todo={todo[1]}/>
+         <Item todo={todo[2]}/>
       </ul>
    )
 }

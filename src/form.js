@@ -22,7 +22,7 @@ const Form = ({setTodos, todos}) => {
       <>
          <h2>入力して追加できます</h2>
          <form action="#" onSubmit={handleSubmit} >
-            <input type="text"  value={inputValue} onChange={handleChange}/>
+            <input type="text" value={inputValue} onChange={handleChange}/>
             <button type="submit">ADD</button>
          </form >
       </>

@@ -1,20 +1,15 @@
 import React from "react"
 import Item from "./Item"
 
+
 // mapメソッドでItemを回す
 // mapメソッド=>配列の要素すべてに同じ処理をする
 
-const List = ({todosValue}) => {
+const List = ({todos, setTodos}) => {
 
-   // const todoList = todos.map( (each) => {
-   //    return (
-   //       <Item todo={each}/>
-   //    )
-   // } )
+   const todoList = todos.map((each, i) => <Item todos={todos} setTodos={setTodos} todo={each} key={each.id} />)
 
-   const todoList = todosValue.map(each => <Item todo={each}/>)
-   console.log(todosValue);
-   
+
    
 
    return (

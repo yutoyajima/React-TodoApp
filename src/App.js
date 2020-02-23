@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import Form from "./Form"
 import List from "./List"
+import "./App.css"
 
 
 const App = () => {
@@ -14,16 +15,30 @@ const App = () => {
    // ]) 
 
    const [todos, setTodos] = useState([
-      {note: "幅をとる"},
-      {note: "スペースを作る"},
-      {note: "裏に抜ける"},
-      {note: "ハーフスペースに入る"},
-      {note: "くさびを通す"}
+      {
+         id: 0,
+         note: "幅をとる"
+      },
+      {
+         id: 1,
+         note: "スペースを作る"
+      },
+      {
+         id: 2,
+         note: "裏に抜ける"
+      },
+      {
+         id: 3,
+         note: "ハーフスペースに入る"
+      },
+      {
+         id: 4,
+         note: "くさびを通す"
+      }
    ]) 
-   console.log(todos);
-   
 
-   const todosValue = todos.map(value => value.note)
+   const [newNote, setNewNote] = useState("")
+
    
 
    return (
@@ -31,8 +46,13 @@ const App = () => {
          <Form 
             setTodos={setTodos} 
             todos={todos}
+            newNote={newNote}
+            setNewNote={setNewNote}
          />
-         <List todosValue={todosValue} />
+         <List 
+            todos={todos}
+            setTodos={setTodos} 
+         />
       </>
    )
 }

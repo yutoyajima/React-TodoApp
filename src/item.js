@@ -4,7 +4,7 @@ const Item = ({todos, setTodos, todo, key}) => {
 
    const handleRemove = () => {
       const subTodos = todos.slice()
-      subTodos.splice(key, 1)
+      subTodos.splice(todo.id, 1)
 
       //idの振り直し
       subTodos.map((todo, i) => {

@@ -7,13 +7,13 @@ import Item from "./Item"
 
 const List = ({todos, setTodos}) => {
 
-   const todoList = todos.map((each, i) => <Item todos={todos} setTodos={setTodos} todo={each} key={each.id} />)
+   const todoList = todos.map((each) => <Item todos={todos} setTodos={setTodos} todo={each} key={each.id} />)
 
 
    
 
    return (
-      <ul>
+      <ul className="todos-list" >
          {/* <Item todo={todos[0]}/> */}
          {/* <Item todo={todos[1]}/> */}
          {/* <Item todo={todos[2]}/> */}

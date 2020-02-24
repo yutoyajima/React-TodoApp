@@ -9,7 +9,7 @@ const Form = ({setTodos, todos, newNote, setNewNote}) => {
       // const subTodos = todos.slice()
       // subTodos.push({note: "スルーパス"})
       // setTodos(subTodos)
-      setTodos(todos.concat({id: todos.length, note: newNote}))
+      setTodos(todos.concat({id: todos.length, note: newNote, isCompleted: false}))
       setNewNote("")
    }
 
@@ -18,25 +18,27 @@ const Form = ({setTodos, todos, newNote, setNewNote}) => {
    }
 
    return (
-      <>
-         <h2>入力して追加できます</h2>
+      <div className="add-form">
+         {/* <p>Add Todos</p> */}
          <form 
             action="#" 
             onSubmit={handleSubmit} 
-         >
+            >
             <input  
                type="text" 
                // value={inputValue} 
                value={newNote}
+               placeholder="Add todos..."
                onChange={handleChange}
             />
             <button 
+               className="add-btn"
                type="submit"
             >
-               ADD
+               +
             </button>
          </form >
-      </>
+      </div>
    )
 } 
 

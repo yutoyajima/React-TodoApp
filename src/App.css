@@ -55,10 +55,8 @@ h1 {
    list-style: none;
    padding: 0;
    width: 60%;
-   margin: 0 auto;
+   margin: 70px auto;
 }
-
-
 
 .each-todo {
    margin-top: 30px;

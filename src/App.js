@@ -43,10 +43,36 @@ const App = () => {
       }
    ]) 
 
-   console.log(todos);
-   
+   const addTodo = (value) => {
 
-   const [newNote, setNewNote] = useState("")
+      setTodos([
+         ...todos,
+         {
+            note:value,
+            id: todos.length
+         }
+      ])
+      // setTodos(todos.concat({
+      //    id: todos.length, 
+      //    note: value, 
+      //    isCompleted: false
+      // }))
+   }
+
+   const removeTodo = (id) => {
+      const subTodos = todos.slice()
+      subTodos.splice(id, 1)
+
+      //idの振り直し
+      subTodos.map((todo, i) => {
+         return(
+            todo.id = i,
+            todo.note = todo.note
+         )
+      })
+      setTodos(subTodos)
+   }
+   
 
    
 
@@ -54,14 +80,12 @@ const App = () => {
       <>
          <Header />
          <Form 
-            setTodos={setTodos} 
-            todos={todos}
-            newNote={newNote}
-            setNewNote={setNewNote}
-         />
+            addTodo={addTodo}
+            />
          <List 
             todos={todos}
-            setTodos={setTodos} 
+            setTodos={setTodos}
+            removeTodo={removeTodo}
          />
       </>
    )

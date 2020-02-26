@@ -5,9 +5,17 @@ import Item from "./Item"
 // mapメソッドでItemを回す
 // mapメソッド=>配列の要素すべてに同じ処理をする
 
-const List = ({todos, setTodos}) => {
+const List = ({todos, setTodos, removeTodo}) => {
 
-   const todoList = todos.map((each) => <Item todos={todos} setTodos={setTodos} todo={each} key={each.id} />)
+   const todoList = todos.map((todo) => 
+      <Item 
+         todos={todos} 
+         setTodos={setTodos} 
+         todo={todo} 
+         key={todo.id}
+         removeTodo={removeTodo}
+      />
+   )
 
 
    

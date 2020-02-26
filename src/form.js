@@ -1,20 +1,20 @@
-import React from "react"
+import React,{useState} from "react"
 
-const Form = ({setTodos, todos, newNote, setNewNote}) => {
+const Form = ({addTodo}) => {
 
-   // let inputValue
+   const [value, setValue] = useState("")
    
    const handleSubmit = (e) => {
       e.preventDefault()
       // const subTodos = todos.slice()
       // subTodos.push({note: "スルーパス"})
       // setTodos(subTodos)
-      setTodos(todos.concat({id: todos.length, note: newNote, isCompleted: false}))
-      setNewNote("")
+      addTodo(value)
+      setValue("")
    }
 
    const handleChange = (e) => {
-      setNewNote(e.target.value)
+      setValue(e.target.value)
    }
 
    return (
@@ -27,7 +27,7 @@ const Form = ({setTodos, todos, newNote, setNewNote}) => {
             <input  
                type="text" 
                // value={inputValue} 
-               value={newNote}
+               value={value}
                placeholder="Add todos..."
                onChange={handleChange}
             />

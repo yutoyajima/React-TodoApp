@@ -1,6 +1,9 @@
 import React from "react"
 
-const Item = ({todos, setTodos, todo}) => {
+const Item = ({todos, setTodos, todo, removeTodo}) => {
+
+
+
 
    const handleComplete = () => {
 
@@ -19,8 +22,8 @@ const Item = ({todos, setTodos, todo}) => {
    }
 
 
-   console.log(todo);
 
+   
 
    let completeBtnText
    for (let i = 0; i < todos.length; i++) {
@@ -32,19 +35,11 @@ const Item = ({todos, setTodos, todo}) => {
    }
 
 
+
+   
+
    const handleRemove = () => {
-      const subTodos = todos.slice()
-      subTodos.splice(todo.id, 1)
-
-      //idの振り直し
-      subTodos.map((todo, i) => {
-         return(
-            todo.id = i,
-            todo.note = todo.note
-         )
-      })
-
-      setTodos(subTodos)
+      removeTodo(todo.id)
    }
 
    return (

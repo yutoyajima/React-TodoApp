@@ -28,18 +28,18 @@ h1 {
 .add-form input {
    box-sizing: border-box;
    padding: 0 30px;
-   height: 50px;
-   font-size: 22px;
    width: 82%;
+   height: 50px;
    background-color: rgba(255, 255, 255, 0.575);
+   font-size: 22px;
    border: 0;
    border-radius: 7px;
 }
 .add-btn {
-   padding: 0;
-   border: 0;
    width: 50px;
    height: 50px;
+   padding: 0;
+   border: 0;
    background-color: rgba(0, 119, 255, 0.651);
    color: #fff;
    font-size: 40px;

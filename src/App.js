@@ -1,8 +1,12 @@
 import React, {useState} from "react"
-import Header from "./Header"
-import Form from "./Form"
-import List from "./List"
-import "./App.css"
+// import Header from "./components/Header"
+import Form from "./components/Form"
+import List from "./components/List"
+// import "./App.css"
+
+import ResetCss from "./components/resetCSS"
+import styled from "styled-components"
+
 
 
 const App = () => {
@@ -73,12 +77,23 @@ const App = () => {
       setTodos(subTodos)
    }
    
-
+   const completeTodo = (index) => {
+      const todosIds = todos.map( i => i.id)
+      const id = todosIds.find( i => i === index)
+      const subTodos = todos.slice()
+      if (subTodos[id].isCompleted === true) {
+         subTodos[id].isCompleted = false
+      } else {
+         subTodos[id].isCompleted = true
+      }
+      setTodos(subTodos)
+   }
    
 
    return (
       <>
-         <Header />
+         <ResetCss />  {/*グローバルスタイルを使う ここでok */}
+         <Title>What To Do</Title>
          <Form 
             addTodo={addTodo}
             />
@@ -86,9 +101,21 @@ const App = () => {
             todos={todos}
             setTodos={setTodos}
             removeTodo={removeTodo}
+            completeTodo={completeTodo}
          />
       </>
    )
 }
+
+// const GlobalStyle = createGlobalStyle`
+//    //reset cssなど
+// `
+
+const Title = styled.h1`
+   color: #e66465;
+   text-align: center;
+   font-size: 50px;
+   margin: 40px 0;
+`
 
 export default App

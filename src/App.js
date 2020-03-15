@@ -1,5 +1,4 @@
-import React, {useState} from "react"
-// import Header from "./components/Header"
+import React, { useState, useEffect } from "react"
 import Form from "./components/Form"
 import List from "./components/List"
 
@@ -14,60 +13,63 @@ import styled from "styled-components"
 
 const App = () => {
 
-   // const [todos, setTodos] = useState([
-   //    "幅をとる",
-   //    "スペースを作る",
-   //    "裏に抜ける",
-   //    "ハーフスペースをつく",
-   //    "くさびを通す"
-   // ]) 
-
    const [todos, setTodos] = useState([
-      {
-         id: 0,
-         note: "幅をとる",
-         isCompleted: false
-      },
-      {
-         id: 1,
-         note: "スペースを作る",
-         isCompleted: false
-      },
-      {
-         id: 2,
-         note: "裏に抜ける",
-         isCompleted: false
-      },
-      {
-         id: 3,
-         note: "ハーフスペースに入る",
-         isCompleted: false
-      },
-      {
-         id: 4,
-         note: "くさびを通す",
-         isCompleted: false
-      }
+      // {
+      //    id: 0,
+      //    note: "幅をとる",
+      //    isCompleted: false
+      // }
    ]) 
 
-   const addTodo = (value) => {
+   // useEffectの第二引数が変わったときにだけ実行する(中身がない時は初回renderの時)
+   useEffect(() => {
+      db.collection("todos")
+         .get()
+         .then((querySnapshot) => {
+            // querySnapshot.forEach((doc) => {
+            //    console.log(`${doc.id} => ${doc.data()}`);
+            // })
+            // console.log(
+            //    querySnapshot.docs.map( doc => doc.data())
+            //    );
+            const savedTodos = querySnapshot.docs.map( doc => {
+               const todo = doc.data()
+               todo.id = doc.id
+               return todo
+            })
+            console.log(savedTodos);
+            setTodos(
+               savedTodos
+               )
+         })
+   }, [])
 
-      setTodos([
-         ...todos,
-         {
-            note:value,
-            id: todos.length
-         }
-      ])
+
+   const addTodo = (value) => {
       // setTodos(todos.concat({
-      //    id: todos.length, 
-      //    note: value, 
-      //    isCompleted: false
-      // }))
-      db.collection("todos").add({
+         //    id: todos.length, 
+         //    note: value, 
+         //    isCompleted: false
+         // }))
+         
+      const newTodo = {
          note: value,
          isCompleted: false
-      })
+      }
+      
+      db.collection("todos")
+         .add(newTodo)
+         .then((docRef) => {
+            console.log("todo added", docRef);
+            newTodo.id = docRef.id
+            setTodos([
+               ...todos,
+               newTodo
+            ])
+         })
+         .catch((error) => {
+            console.log(error);
+         })
    }
 
 
@@ -83,11 +85,21 @@ const App = () => {
       //    )
       // })
       // setTodos(subTodos)
-      setTodos(todos.filter((todo, index) => index !== id))
+      db.collection("todos").doc(id)
+         .delete()
+         .then(() => {
+            console.log("todo deleted");
+            //画面から消す作業
+            setTodos(todos.filter((todo) => todo.id !== id))
+
+         })
+         .catch(err => {
+            console.log(err);
+         })
    }
 
    
-   const completeTodo = (index) => {
+   const completeTodo = (id) => {
       // const todosIds = todos.map( i => i.id)
       // const id = todosIds.find( i => i === index)
       // const subTodos = todos.slice()
@@ -97,10 +109,43 @@ const App = () => {
       //    subTodos[id].isCompleted = true
       // }
       // setTodos(subTodos)
+
+      // const subTodos = todos.slice()
+      // subTodos[id].isCompleted = !subTodos[id].isCompleted
+      // setTodos(subTodos)
+      
+      
       const subTodos = todos.slice()
-      subTodos[index].isCompleted = !subTodos[index].isCompleted
-      setTodos(subTodos)
+      const targetTodo = subTodos.filter(todo => todo.id === id)
+      if (!targetTodo[0].isCompleted) {
+         db.collection("todos").doc(id)
+            .update({
+               isCompleted: !false
+            })
+            .then(() => {
+               console.log("toggled!");
+               targetTodo[0].isCompleted = !targetTodo[0].isCompleted
+               setTodos(subTodos)
+            })
+            .catch(err => console.log(err))
+
+      } else if (targetTodo[0].isCompleted) {
+         db.collection("todos").doc(id)
+            .update({
+               isCompleted: !true
+            })
+            .then(() => {
+               console.log("toggled!");
+               targetTodo[0].isCompleted = !targetTodo[0].isCompleted
+               setTodos(subTodos)
+            })
+            .catch(err => console.log(err))
+      }
+
+      
    }
+   
+   console.log(todos);
    
 
    return (

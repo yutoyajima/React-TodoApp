@@ -20,11 +20,12 @@ const Form = ({ addTodo,  }) => {
    }
 
    return (
+
       <FormStyle>
          <form 
             action="#" 
             onSubmit={handleSubmit} 
-            >
+         >
             <input  
                type="text" 
                value={value}

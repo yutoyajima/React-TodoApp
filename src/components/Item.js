@@ -2,9 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 const Item = ({todos, todo, id, removeTodo, completeTodo}) => {
-
-
-
+   
    const handleRemove = () => {
       if (window.confirm("Remove this todo?")) {
          removeTodo(id)
@@ -24,11 +22,13 @@ const Item = ({todos, todo, id, removeTodo, completeTodo}) => {
       }
    }
 
+   const completed = todo.isCompleted
+   
 
    return (
       <>
          {/* <li className="each-todo"> */}
-            <ItemStyle>
+            <ItemStyle completed={completed} >
                <p className="todo-text">{todo.note}</p>
                <div className="list-btns">
                   <button 
@@ -38,6 +38,7 @@ const Item = ({todos, todo, id, removeTodo, completeTodo}) => {
                   >
                      {completeBtnText}
                   </button>
+
                   <button 
                      className="remove-btn"
                      type="text" 
@@ -66,6 +67,7 @@ const ItemStyle = styled.li`
    .todo-text {
       font-size: 18px;
       width: 60%;
+      text-decoration: ${ ({completed}) => completed ? "line-through" : "none" };
    }
    .list-btns {
       display: flex;

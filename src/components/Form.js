@@ -1,14 +1,18 @@
 import React,{useState} from "react"
 import styled from "styled-components"
 
-const Form = ({addTodo}) => {
+const Form = ({ addTodo,  }) => {
 
    const [value, setValue] = useState("")
    
    const handleSubmit = (e) => {
       e.preventDefault()
-      addTodo(value)
-      setValue("")
+      if (!value) {
+         alert("入力してください")
+      } else {
+         addTodo(value)
+         setValue("")
+      }
    }
 
    const handleChange = (e) => {

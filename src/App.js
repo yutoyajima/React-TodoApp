@@ -2,8 +2,11 @@ import React, {useState} from "react"
 // import Header from "./components/Header"
 import Form from "./components/Form"
 import List from "./components/List"
-// import "./App.css"
 
+
+import { db } from "./config/firebase"
+
+// import "./App.css"
 import ResetCss from "./components/resetCSS"
 import styled from "styled-components"
 
@@ -61,31 +64,41 @@ const App = () => {
       //    note: value, 
       //    isCompleted: false
       // }))
+      db.collection("todos").add({
+         note: value,
+         isCompleted: false
+      })
    }
+
 
    const removeTodo = (id) => {
-      const subTodos = todos.slice()
-      subTodos.splice(id, 1)
+      // const subTodos = todos.slice()
+      // subTodos.splice(id, 1)
 
-      //idの振り直し
-      subTodos.map((todo, i) => {
-         return(
-            todo.id = i,
-            todo.note = todo.note
-         )
-      })
-      setTodos(subTodos)
+      // //idの振り直し
+      // subTodos.map((todo, i) => {
+      //    return(
+      //       todo.id = i,
+      //       todo.note = todo.note
+      //    )
+      // })
+      // setTodos(subTodos)
+      setTodos(todos.filter((todo, index) => index !== id))
    }
+
    
    const completeTodo = (index) => {
-      const todosIds = todos.map( i => i.id)
-      const id = todosIds.find( i => i === index)
+      // const todosIds = todos.map( i => i.id)
+      // const id = todosIds.find( i => i === index)
+      // const subTodos = todos.slice()
+      // if (subTodos[id].isCompleted === true) {
+      //    subTodos[id].isCompleted = false
+      // } else {
+      //    subTodos[id].isCompleted = true
+      // }
+      // setTodos(subTodos)
       const subTodos = todos.slice()
-      if (subTodos[id].isCompleted === true) {
-         subTodos[id].isCompleted = false
-      } else {
-         subTodos[id].isCompleted = true
-      }
+      subTodos[index].isCompleted = !subTodos[index].isCompleted
       setTodos(subTodos)
    }
    
@@ -96,6 +109,7 @@ const App = () => {
          <Title>What To Do</Title>
          <Form 
             addTodo={addTodo}
+            
             />
          <List 
             todos={todos}

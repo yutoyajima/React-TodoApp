@@ -1,16 +1,18 @@
 import React from "react"
 import styled from "styled-components"
 
-const Item = ({todos, todo, removeTodo, completeTodo}) => {
+const Item = ({todos, todo, id, removeTodo, completeTodo}) => {
 
 
 
    const handleRemove = () => {
-      removeTodo(todo.id)
+      if (window.confirm("Remove this todo?")) {
+         removeTodo(id)
+      }
    }
 
    const handleComplete = () => {
-      completeTodo(todo.id)
+      completeTodo(id)
    }
 
    let completeBtnText

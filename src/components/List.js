@@ -8,11 +8,13 @@ import styled from "styled-components"
 
 const List = ({todos, removeTodo, completeTodo}) => {
 
-   const todoList = todos.map((todo) => 
+   const todoList = todos.map((todo, index) => 
       <Item 
          todos={todos} 
          todo={todo} 
-         key={todo.id}
+         // key={todo.id}
+         key={index}
+         id={index}
          removeTodo={removeTodo}
          completeTodo={completeTodo}
       />

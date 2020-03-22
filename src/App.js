@@ -117,6 +117,7 @@ const App = () => {
       
       const subTodos = todos.slice()
       const targetTodo = subTodos.filter(todo => todo.id === id)
+
       if (!targetTodo[0].isCompleted) {
          db.collection("todos").doc(id)
             .update({
